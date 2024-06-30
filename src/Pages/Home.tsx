@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { fetchCollections, fetchPhotos } from "../store/api";
 import Loader from "../Components/Loader";
 
-const Home = () => {
+const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const { data, isLoading, isError } = useAppSelector(
     (state) => state.collections
@@ -23,8 +23,14 @@ const Home = () => {
 
   if (isLoading || isPhotosLoading) return <Loader />;
 
-  if (isError || isPhotosError)
-    return alert("Oops.! Something went wrong please refresh");
+  if (isError || isPhotosError) {
+    alert("Oops.! Something went wrong please refresh");
+    return (
+      <p className="text-white font-IBM-Plex-Mono text-lg font-semibold">
+        Error occurred. Please try again.
+      </p>
+    );
+  }
 
   return (
     <>
